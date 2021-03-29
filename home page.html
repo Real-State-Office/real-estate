@@ -2,16 +2,25 @@
 <html>
 
 <head> 
-    <title> WELCOME TO MY WEBSITE </title>
+    <title> Real Estate Office </title>
     <link rel="stylesheet" href="home page.css">
+    <script>
+        function homeClick() {
+            var un = document.getElementsByTagName("button");
+            if(un != null) {
+                window.location.href = "login page.html";
+            }
+        }
+
+    </script>
 </head>
 <body>
     <div class="login-as">
         <h1>Login as</h1>
     </div>
-    <div class="button-home-page">
-        <button>AGENT</button>
-        <button>OFFICE</button>
+    <div class="button-home">
+        <button onclick="homeClick()" class="button-home-page">AGENT</button>
+        <button onclick="homeClick()" class="button-home-page">OFFICE</button>
     </div>
 </body>
 </html>
