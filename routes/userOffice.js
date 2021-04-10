@@ -1,9 +1,9 @@
 exports.index = function(req, res){
    var message = '';
  res.render('indexOffice',{message: message});
-
+ 
 };
-
+ 
 //---------------------------------------------signup page call------------------------------------------------------
 exports.signup = function(req, res){
    message = '';
@@ -11,14 +11,14 @@ exports.signup = function(req, res){
       var post  = req.body;
       var name= post.Username;
       var pass= post.Password;
-      var sql = "INSERT INTO office_login(Username,Password) VALUES ('" + name + "','" + pass + "')";
+      var sql = "INSERT INTO (Username,Password) VALUES ('" + name + "','" + pass + "')";
 console.log("SQL:"+ sql);
       var query = db.query(sql, function(err, result) {
 console.log(result);
-         message = "Succesfully! Your account has been created.";
+         message = "Successfully! Your account has been created.";
          res.render('signupOffice.ejs',{message: message});
       });
-
+ 
    } else {
       res.render('signupOffice');
    }
@@ -28,7 +28,7 @@ console.log(result);
 exports.login = function(req, res){
    var message = '';
    var sess = req.session; 
-
+ 
    if(req.method == "POST"){
       var post  = req.body;
       var name= post.Username;
@@ -62,16 +62,16 @@ exports.dashboard = function(req, res, next){
       res.redirect("/loginOffice");
       return;
    }
-   var Username = user.Username;
-   console.log('ddd='+Username);
+   var uname = user.Username;
+   console.log('ddd='+uname);
   
-
+ 
    var pc,ac,tc,bc,sc,ts,c2;
-   db.query("select count(*) as c from property where P_status=1 union select count(*) as c from property where P_status=2",(err, pro) => {
+   db.query("select count(*) as c from property where Available='Yes' union select count(*) as c from property where Available='No'",(err, pro) => {
       pc = pro[0].c; 
       c2 = pro[1].c;
       });
-   db.query("select count(*) as c from tran_sale union select count(*) as c from tran_rent",(err, tran) => {
+   db.query("select count(*) as c from sale_details union select count(*) as c from rent_details",(err, tran) => {
           tc = tran[0].c + tran[1].c;
      
   
@@ -84,13 +84,13 @@ exports.dashboard = function(req, res, next){
    db.query("select count(*) as c from owner",(err, s) => {
       sc = s[0].c; 
      
-   db.query("select sum(sell_price) as c from tran_sale union select sum(rent) as c from tran_rent",(err, tran) => {
+   db.query("select sum(sell_price) as c from sale_details union select sum(rent) as c from rent_details",(err, tran) => {
       ts = tran[0].c + tran[1].c;
      
      //res.render("office.ejs",{p_c: pc,a_c : ac, b_c : bc,s_c : sc, t_c : tc ,t_s : ts});
-
-var sql="SELECT * FROM office_login WHERE Username='"+Username+"'";
-
+ 
+var sql="SELECT * FROM office_login WHERE Username='"+uname+"'";
+ 
    db.query(sql, function(err, results){
       console.log("Logged in as: ");
       console.log(results);
@@ -101,7 +101,7 @@ var sql="SELECT * FROM office_login WHERE Username='"+Username+"'";
    });
 });
    });
-
+ 
 };
 //------------------------------------logout functionality----------------------------------------------
 exports.logout=function(req,res){
@@ -109,16 +109,17 @@ exports.logout=function(req,res){
       res.redirect("/loginOffice");
    })
 };
+
 //--------------------------------render user details after login--------------------------------
 exports.profile = function(req, res){
-
+ 
    var userId = req.session.userId;
    if(userId == null){
       res.redirect("/loginOffice");
       return;
    }
-
-   var sql="SELECT * FROM usersOffice WHERE `id`='"+userId+"'";          
+ 
+   var sql="SELECT * FROM userOffice WHERE `ID`='"+userId+"'";          
    db.query(sql, function(err, result){  
       res.render('profileOffice.ejs',{data:result});
    });
@@ -130,11 +131,14 @@ exports.editprofile=function(req,res){
       res.redirect("/login");
       return;
    }
-
-   var sql="SELECT * FROM `users` WHERE `id`='"+userId+"'";
+ 
+   var sql="SELECT * FROM `user` WHERE `ID`='"+userId+"'";
    db.query(sql, function(err, results){
       res.render('edit_profile.ejs',{data:results});
    });
 };
+
 //-------------------------------------------------------------------------------------------------
 setInterval(function(){db.query('select 1');},5000);
+ 
+
