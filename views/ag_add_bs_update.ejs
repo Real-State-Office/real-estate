@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/stylesheets/office.css">
     </head>
     <body>
-       
+        
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">Agent</a>
@@ -24,8 +24,8 @@
                   <a class="nav-link" href="/home/dashboard">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active"><p class="nav-link">Welcome : <%= user.Firstname %> <%= user.Lastname %></p></li>
-                <li class="nav-item active"><p class="nav-link">Email: <%= user.Email %></p></li>
-                <li class="nav-item active"><p class="nav-link">Contact: <%= user.contact %></p></li>
+                <li class="nav-item active"><p class="nav-link">Email: <%= user.Email_ID %></p></li>
+                <li class="nav-item active"><p class="nav-link">Contact: <%= user.Phone_Number %></p></li>
                 <li class="nav-item active"><a class="nav-link" href="/home/logout">Logout</a></li>
                 
                     
@@ -41,22 +41,22 @@
                 <form style="margin-top : 40px;" action="/office/add/<%= tit %>Update" method="POST">
                     
                     <div class="form-group" style="margin-top: 20px;">
-                        <input type="text" class="add_agent" id="ownerID" name="ownerID" placeholder="owner id" value="<%=ownerData[0].ID %>" style="width: 60%; border-radius: 4px;" required maxlength="10" minlength="10" readonly> 
+                        <input type="text" class="add_agent" id="ownerID" name="O_ID" placeholder="owner id" value="<%=ownerData[0].ID %>" style="width: 60%; border-radius: 4px;" required maxlength="10" minlength="10" readonly> 
                     </div>
 
                     <div class="form-group" style="width:60%; margin: auto;">
-                        <input type="text" class="add_agent" id="first_name" name="first_name" placeholder="First Name" value = "<%=ownerData[0].Firstname %>" style="width: 49%; float: left; border-radius: 4px;" required>
+                        <input type="text" class="add_agent" id="first_name" name="Firstname" placeholder="First Name" value = "<%=ownerData[0].Firstname %>" style="width: 49%; float: left; border-radius: 4px;" required>
                     
-                        <input type="text" class="add_agent" id="last_name" name="last_name" placeholder="Last Name" value="<%=ownerData[0].Lastname %>" style="width: 49%; border-radius: 4px;">
+                        <input type="text" class="add_agent" id="last_name" name="Lastname" placeholder="Last Name" value="<%=ownerData[0].Lastname %>" style="width: 49%; border-radius: 4px;">
                     </div>
 
                     <div class="form-group" style="margin-top: 20px;">
-                        <input type="email" class="add_agent" id="email" name="email" placeholder="Enter email" value="<%=ownerData[0].Email %>" style="width: 60%; border-radius: 4px;" required>
+                        <input type="email" class="add_agent" id="email" name="Email_ID" placeholder="Enter email" value="<%=ownerData[0].Email_ID %>" style="width: 60%; border-radius: 4px;" required>
                      </div>
                     
 
                     <div class="form-group" style="margin-top: 20px;">
-                        <input type="text" class="add_agent" id="Contact" name="Contact" placeholder="contact" value="<%=ownerData[0].contact %>" style="width: 60%; border-radius: 4px;" required maxlength="10" minlength="10"> 
+                        <input type="text" class="add_agent" id="Contact" name="Phone_Number" placeholder="contact" value="<%=ownerData[0].Phone_Number %>" style="width: 60%; border-radius: 4px;" required maxlength="10" minlength="10"> 
                     </div>
 
                     <div class="form-group" style="margin: 20px auto 0px auto; width : 60%; height: 50px;" >

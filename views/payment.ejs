@@ -13,7 +13,7 @@
   }
 </style>
     
-
+ 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -27,8 +27,8 @@
               <a class="nav-link" href="/home/dashboard">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active"><p class="nav-link">Welcome : <%= user.Firstname %> <%= user.Lastname %></p></li>
-            <li class="nav-item active"><p class="nav-link">Email: <%= user.Email %></p></li>
-            <li class="nav-item active"><p class="nav-link">Contact: <%= user.contact %></p></li>
+            <li class="nav-item active"><p class="nav-link">Email: <%= user.Email_ID %></p></li>
+            <li class="nav-item active"><p class="nav-link">Contact: <%= user.Phone_Number %></p></li>
             <li class="nav-item active"><a class="nav-link" href="/home/logout">Logout</a></li>
             
                 
@@ -37,7 +37,7 @@
       </nav>
     <div class="box1">
       <div class="wrap">
-
+ 
         <div class="box3" style="margin-bottom: 40px; text-align: center;"> 
           <b style="color: red; text-align: center;">If Buyer not listed in the list, then first add Buyer : </b>
          <br> <a href="/agent/add/buyer" class="btn btn-primary" style="padding: 15px 40px 15px 40px; margin-top: 10px;">Add Buyer</a>
@@ -46,12 +46,12 @@
         <div class="card" style="margin:auto;">
             <div class="card-body box2">
               <strong>Payment</strong>
-
+ 
               <form action="/agent/add/payment" method="POST">
                 
                 <div class="form-group row">
                   <label for="example-date-input">Date</label>
-                  <input class="form-control" type="date"  name="sdate" id="example-date-input" required>
+                  <input class="form-control" type="date"  name="S_date" id="example-date-input" required>
                 </div>  
               
                 <div class="form-group row">
@@ -67,7 +67,7 @@
                   
                 </select>
                 </div>
-
+ 
                 <div class="form-group row">
                   <label  for="inlineFormCustomSelect">Property ID</label>
                   <select class="custom-select " id="inlineFormCustomSelect" required name ="pid">
@@ -83,29 +83,29 @@
                   </div>
                       
                      
-
+ 
                     <div class="form-group row">
                       <label  for="inlineFormCustomSelect1" style="float: left;">Property status</label>
                       <select class="custom-select " onchange="show();" id="sr" name="tran_type" required> 
                         <option selected >Choose...</option>
-                        <option value="0"  >For Sale</option>
-                        <option value="1"  >For Rent</option>
+                        <option value="Sale"  >For Sale</option>
+                        <option value="Rent"  >For Rent</option>
                       </select>
                     </div>
-
+ 
                   <div class="form-group row" id="rent">
                     <label for="example-rprice-input"  style="float: left;">Rent Cost per month</label>                        
                     <input class="form-control" type="number" name="rent" id="example-rprice-input">
                   </div>
-
+ 
                   <div class="form-group row" id="rent1">
                     <label for="example-date-input" style="float: left;">End Date</label>
-                    <input class="form-control" type="date"  name="edate" id="example-date-input" value="2020-01-01" required>
+                    <input class="form-control" type="date"  name="END_DATE" id="example-date-input" value="01-01-21" required>
                   </div>
                  
                       <div class="form-group row " id="sale" >
                         <label for="example-price-input"  style="float: left;" >Selling Cost</label>                        
-                        <input class="form-control" type="number" name="sprice" id="example-price-input">
+                        <input class="form-control" type="number" name="Sell_price" id="example-price-input">
                       </div>
                       
                     <div class="form-group">
@@ -144,8 +144,8 @@
                       });
                     }, false);
                   })();
-
-
+ 
+ 
                   function show(){
                     var b = document.getElementById("sr");
                     var a = b.options[b.selectedIndex].value;
@@ -165,10 +165,12 @@
                   }
                   </script>
      
-
+ 
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
+ 
+

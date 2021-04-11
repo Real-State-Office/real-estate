@@ -31,10 +31,10 @@ router.get('/:thing', function (req, res) {
   if (d[0] === "a") {
     var s = "select * from agent where ID =" + d.substring(1);
     con.query(s, (err, agnt) => {
-      //  con.query("select username from login where a_id="+d.substring(1),(err, agnt1) => {
+      //  con.query("select username from login where ID="+d.substring(1),(err, agnt1) => {
       var user = req.session.user;
       console.log(user);
-      res.render("ag_profile.ejs", { user: user, tit: "Agent", name: agnt[0].Firstname + " " + agnt[0].Lastname, con: agnt[0].contact, email: agnt[0].Email, id: agnt[0].ID, user: agnt[0].ID, flag: 3, type: d[1] });
+      res.render("ag_profile.ejs", { user: user, tit: "Agent", name: agnt[0].Firstname + " " + agnt[0].Lastname, con: agnt[0].Phone_Number, email: agnt[0].Email_ID, id: agnt[0].ID, user: agnt[0].ID, flag: 3, type: d[1] });
       // });
     });
   }
@@ -45,10 +45,10 @@ router.get('/:thing', function (req, res) {
       var user = req.session.user;
       console.log(user);
 
-      con.query("select * from tran_rent t,property p where p.ID=t.p_id and t.b_id=" + agnt[0].ID, (err, agent) => {
-        con.query("select * from tran_sale t,property p where p.ID=t.p_id and t.b_id=" + agnt[0].ID, (err, agent1) => {
+      con.query("select * from rent_details t,property p where p.P_ID=t.P_ID and t.B_ID=" + agnt[0].ID, (err, agent) => {
+        con.query("select * from sale_details t,property p where p.P_ID=t.P_ID and t.B_ID=" + agnt[0].ID, (err, agent1) => {
 
-          res.render("ag_profile.ejs", { user: user, tit: "Buyer", name: agnt[0].Firstname + " " + agnt[0].Lastname, con: agnt[0].contact, email: agnt[0].Email, id: agnt[0].ID, user: agnt[0].ID, flag: 1, userDataRent: agent, userDataSale: agent1, type: d[1] });
+          res.render("ag_profile.ejs", { user: user, tit: "Buyer", name: agnt[0].Firstname + " " + agnt[0].Lastname, con: agnt[0].Phone_Number, email: agnt[0].Email_ID, id: agnt[0].ID, user: agnt[0].ID, flag: 1, userDataRent: agent, userDataSale: agent1, type: d[1] });
         });
       });
     });
@@ -60,8 +60,8 @@ router.get('/:thing', function (req, res) {
       var user = req.session.user;
       console.log("SELLER ME HAI APUN!");
       console.log(user);
-      con.query("select * from property  where o_ID=" + agnt[0].ID, (err, agent1) => {
-        res.render("ag_profile.ejs", { user: user, tit: "Seller", name: agnt[0].Firstname + " " + agnt[0].Lastname, con: agnt[0].contact, email: agnt[0].Email, id: agnt[0].ID, user: agnt[0].ID, flag: 2, userData: agent1, type: d[1] });
+      con.query("select * from property where O_ID=" + agnt[0].ID, (err, agent1) => {
+        res.render("ag_profile.ejs", { user: user, tit: "Seller", name: agnt[0].Firstname + " " + agnt[0].Lastname, con: agnt[0].Phone_Number, email: agnt[0].Email_ID, id: agnt[0].ID, user: agnt[0].ID, flag: 2, userData: agent1, type: d[1] });
       });
     });
   }
@@ -70,7 +70,7 @@ router.get('/:thing', function (req, res) {
   if (d > 0) {
     d = d + "";
     var prr, pss, ts;
-    s = "select count(*) as c,sum(sell_price) as b from tran_sale where a_id=" + Number(d);
+    s = "select count(*) as c,sum(Sell_price) as b from sale_details where ID=" + Number(d);
 
     con.query(s, (err, agent) => {
       if (agent.length > 0) {
@@ -83,7 +83,7 @@ router.get('/:thing', function (req, res) {
       }
 
 
-      s = "select count(*) as c,sum(rent) as b  from tran_rent where a_id=" + Number(d);
+      s = "select count(*) as c,sum(Rent) as b from rent_details where ID=" + Number(d);
       con.query(s, (err, agent) => {
         if (agent.length > 0) {
           prr = agent[0].c;
@@ -92,14 +92,14 @@ router.get('/:thing', function (req, res) {
         else {
           prr = 0;
         }
-        con.query("select TR_ID,st_date,end_date,t.a_id,t.p_id,rent,bhk,adress from property p ,tran_rent t where p.ID=t.p_id and t.a_id=" + Number(d), (err, agnt1) => {
+        con.query("select TR_ID,Start_Date,END_DATE,t.ID,t.P_ID,Rent,Bedroom,Address from property p ,rent_details t where p.ID=t.P_ID and t.ID=" + Number(d), (err, agnt1) => {
 
-          con.query("select TS_ID,s_date,t.a_id,t.p_id,sell_price,bhk,adress from property p ,tran_sale t where p.ID=t.p_id and t.a_id = " + Number(d), (err, agnt2) => {
+          con.query("select TS_ID,S_date,t.ID,t.P_ID,Sell_price,Bedroom,Address from property p ,sale_details t where p.ID=t.P_ID and t.ID = " + Number(d), (err, agnt2) => {
 
             con.query("select * from agent where ID =" + Number(d), (err, agnt) => {
               var user = req.session.user;
               console.log(user);
-              con.query("select * from property where P_status = 1 and a_ID =" + Number(d), (err, ag) => {
+              con.query("select * from property where Available = 'Yes' and ID =" + Number(d), (err, ag) => {
 
                 res.render("report.ejs", { user: user, name: agnt[0].Firstname + " " + agnt[0].Lastname, id: agnt[0].ID, userDataSale: agnt2, userDataRent: agnt1, sale: ts, pr: prr, ps: pss, userDataPen: ag });
               });

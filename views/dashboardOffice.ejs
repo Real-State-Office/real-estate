@@ -9,13 +9,22 @@
 
         <title>office home page</title>
         <link rel="stylesheet" href="/stylesheets/office.css">
-
+        <style>
+            body {
+                background-image: url("https://img.freepik.com/free-photo/scandinavian-house-modern-design-with-copy-space_42251-43.jpg?size=626&ext=jpg&ga=GA1.2.1588707983.1617235200");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+            .body {
+                background-color: transparent;
+            }
+        </style>
     
     
     </head>
     <body>
         
-            <div class="header ">
+            <div class="header " style="background-color:seagreen">
                     <span style=" font-weight : 700 ;font-size: 26px; margin-left: 50px; margin-right: 20px;">Office's Dashboard</span>
                     <a class="head_a" href="/home/dashboardOffice" style=" font-weight : 700 ;margin-left: 20px; margin-right: 20px; text-decoration: none; color: white;">Home</a>
                     <p class="head_a" style=" font-weight : 700 ;margin-left: 20px; margin-right: 20px; text-decoration: none; color: white;">Welcome: <%=user.Username%></p>
@@ -27,12 +36,12 @@
 
             <div class="body">
                 
-                <div class="count">
+                <div class="count" style="background-color:seagreen">
                     <P class="num"  style=" font-weight : 700 ;border-radius: 50%; padding: 10px; background-color: white; "><%= p_c+t_c+c_2 %></P>
                     <br>
                     <p  class="n_name" style="font-weight: 700; color : white">TOTAL PROPERTIES</p>
                 </div>
-                <div class="count">
+                <div class="count" style="background-color:seagreen">
                     <p class="num"  style=" font-weight : 700 ;border-radius: 50%; padding: 10px; background-color: white; "><%= t_s %></p>
                     <br>
                     <P  class="n_name"  style="font-weight: 700; color : white" >TOTAL SALE</P>
@@ -47,33 +56,33 @@
                 <div class="container" style="margin-top: 60px; ">
                     <div id="cont_1">
                          <span style="font-size: 25px; font-weight: 500;">AGENTS</span><br><br>
-                         <span style="border-radius: 50%; padding: 10px; background-color: #0275d8; color :white;"> <%= a_c %></span>
+                         <span style="border-radius: 50%; padding: 10px; background-color: seagreen; color :white;"> <%= a_c %></span>
                     </div>
                     <div id="cont_2">
-                               <a id="add_agent" href="/office/add/agent" style="text-decoration: none;" ><div style="float: right; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">ADD AGENT</div></a>
-                               <a id="add_agent" href="/office/view/agent" style="text-decoration: none;" ><div style="float: right; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">VIEW AGENT</div></a>
+                               <a id="add_agent" href="/office/add/agent" style="text-decoration: none;" ><div style="float: right; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">ADD AGENT</div></a>
+                               <a id="add_agent" href="/office/view/agent" style="text-decoration: none;" ><div style="float: right; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">VIEW AGENT</div></a>
                      </div>
                 </div>
 
                 <div class="container">
                     <div id="cont_1">
                         <span style="font-size: 25px; font-weight: 500;">PROPERTIES</span><br><br>
-                        <span style="border-radius: 50%; padding: 10px; background-color: #0275d8; color :white;"> <%= p_c %></span>
+                        <span style="border-radius: 50%; padding: 10px; background-color: seagreen; color :white;"> <%= p_c %></span>
                     </div>
                     <div id="cont_2">
                         
-                        <a id="add_agent" href="/office/view/property" style="text-decoration: none;" ><div style=" padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">AVAIL. PROPERTIES</div></a>
+                        <a id="add_agent" href="/office/view/property" style="text-decoration: none;" ><div style=" padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">AVAILABLE PROPERTIES</div></a>
                     </div>
                 </div>
                 
                 <div class="container">
                     <div id="cont_1">
                         <span style="font-size: 25px; font-weight: 500;">BUYERS</span><br><br>
-                        <span style="border-radius: 50%; padding: 10px; background-color: #0275d8; color :white;"><%= b_c %></span>
+                        <span style="border-radius: 50%; padding: 10px; background-color: seagreen; color :white;"><%= b_c %></span>
                     </div>
                     <div id="cont_2">
                        
-                        <a id="add_agent" href="/office/view/buyer" style="text-decoration: none;" ><div style=" padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">VIEW BUYERS</div></a>
+                        <a id="add_agent" href="/office/view/buyer" style="text-decoration: none;" ><div style=" padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">VIEW BUYERS</div></a>
              
                     </div>
                 </div>
@@ -81,32 +90,32 @@
                 <div class="container">
                     <div id="cont_1">
                         <span style="font-size: 25px; font-weight: 500;">SELLERS</span><br><br>
-                        <span style="border-radius: 50%; padding: 10px; background-color: #0275d8; color :white;"><%= s_c %></span>
+                        <span style="border-radius: 50%; padding: 10px; background-color: seagreen; color :white;"><%= s_c %></span>
                     </div>
                     <div id="cont_2">
                        
-                        <a id="add_agent" href="/office/view/seller" style="text-decoration: none;" ><div style=" padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">VIEW SELLERS</div></a>
+                        <a id="add_agent" href="/office/view/seller" style="text-decoration: none;" ><div style=" padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">VIEW SELLERS</div></a>
                     </div>
                 </div>
 
                 <div class="container">
                     <div id="cont_1">
                         <span style="font-size: 22px; font-weight: 500;">TRANSACTIONS</span><br><br>
-                        <span style="border-radius: 50%; padding: 10px; background-color: #0275d8; color :white;"><%= t_c %></span>
+                        <span style="border-radius: 50%; padding: 10px; background-color: seagreen; color :white;"><%= t_c %></span>
                     </div>
                     <div id="cont_2">
-                        <a id="add_agent" href="/office/prop_tran/sale" style="text-decoration: none;" ><div style="float :right; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">PROPERTIES SOLD</div></a>
-                        <a id="add_agent" href="/office/prop_tran/rent" style="text-decoration: none;" ><div style="float: right; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">PROPERTIES RENTED</div></a>
+                        <a id="add_agent" href="/office/prop_tran/sale" style="text-decoration: none;" ><div style="float :right; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">PROPERTIES SOLD</div></a>
+                        <a id="add_agent" href="/office/prop_tran/rent" style="text-decoration: none;" ><div style="float: right; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px 20px 0px 20px; ">PROPERTIES RENTED</div></a>
                     </div>
                 </div>
 
                 <div class="container">
                     <div id="cont_1">
                         <span style="font-size: 22px; font-weight: 500;">UNLISTED PROPERTIES</span><br><br>
-                        <span style="border-radius: 50%; padding: 10px; background-color: #0275d8; color :white;"><%= c_2 %></span>
+                        <span style="border-radius: 50%; padding: 10px; background-color: seagreen; color :white;"><%= c_2 %></span>
                     </div>
                     <div id="cont_2">
-                        <a id="add_agent" href="/office/view/unlistproperty" style="text-decoration: none;" ><div style=" padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">UNLISTED PROPERTIES</div></a>
+                        <a id="add_agent" href="/office/view/unlistproperty" style="text-decoration: none;" ><div style=" padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :40%; margin: 20px auto 0px auto; ">UNLISTED PROPERTIES</div></a>
                    </div>
                 </div>
                 
