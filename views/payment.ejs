@@ -11,9 +11,39 @@
   #sale{
     display: none;
   }
+  .wrap {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .box1 {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .card {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        body {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .form-group {
+          font-weight: bold;
+        }
+        .btn {
+          background-color: seagreen;
+        }
+        .btn-submit {
+          margin-left: 80px;
+        }
+        
 </style>
     
- 
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -37,7 +67,7 @@
       </nav>
     <div class="box1">
       <div class="wrap">
- 
+
         <div class="box3" style="margin-bottom: 40px; text-align: center;"> 
           <b style="color: red; text-align: center;">If Buyer not listed in the list, then first add Buyer : </b>
          <br> <a href="/agent/add/buyer" class="btn btn-primary" style="padding: 15px 40px 15px 40px; margin-top: 10px;">Add Buyer</a>
@@ -46,12 +76,12 @@
         <div class="card" style="margin:auto;">
             <div class="card-body box2">
               <strong>Payment</strong>
- 
+
               <form action="/agent/add/payment" method="POST">
                 
                 <div class="form-group row">
                   <label for="example-date-input">Date</label>
-                  <input class="form-control" type="date"  name="S_date" id="example-date-input" required>
+                  <input class="form-control" type="text"  name="date" id="example-date-input" required>
                 </div>  
               
                 <div class="form-group row">
@@ -61,13 +91,13 @@
                   <%if(Data.length!=0){
                     Data.forEach(function(data){
                     %>
-                  <option value="<%= data.ID%>" ><%= data.Firstname%> <%= data.Lastname%></option>
+                  <option value="<%= data.B_ID%>" ><%= data.Firstname%> <%= data.Lastname%></option>
                   
                   <% })} %>
                   
                 </select>
                 </div>
- 
+
                 <div class="form-group row">
                   <label  for="inlineFormCustomSelect">Property ID</label>
                   <select class="custom-select " id="inlineFormCustomSelect" required name ="pid">
@@ -75,7 +105,7 @@
                     <%if(Data1.length!=0){
                       Data1.forEach(function(data){
                       %>
-                    <option value="<%= data.ID%>" ><%= data.ID%> : Listed for <%if(data.P_tag===1){%> Rent <%} else {%> Sale <% } %></option>
+                    <option value="<%= data.P_ID%>" ><%= data.P_ID%> : Listed for <%if(data.Sale_or_Rent==='Rent'){%> Rent <%} else {%> Sale <% } %></option>
                     
                     <% })} %>
                     
@@ -83,7 +113,7 @@
                   </div>
                       
                      
- 
+
                     <div class="form-group row">
                       <label  for="inlineFormCustomSelect1" style="float: left;">Property status</label>
                       <select class="custom-select " onchange="show();" id="sr" name="tran_type" required> 
@@ -92,21 +122,24 @@
                         <option value="Rent"  >For Rent</option>
                       </select>
                     </div>
- 
+
                   <div class="form-group row" id="rent">
                     <label for="example-rprice-input"  style="float: left;">Rent Cost per month</label>                        
-                    <input class="form-control" type="number" name="rent" id="example-rprice-input">
+                    <input class="form-control" type="number" name="Rent" id="example-rprice-input">
                   </div>
- 
+                  
+                  <div class="form-group row " id="sale" >
+                    <label for="example-price-input"  style="float: left;" >Selling Cost</label>                        
+                    <input class="form-control" type="number" name="Sell_price" id="example-price-input">
+                  </div>
+
+
                   <div class="form-group row" id="rent1">
                     <label for="example-date-input" style="float: left;">End Date</label>
-                    <input class="form-control" type="date"  name="END_DATE" id="example-date-input" value="01-01-21" required>
+                    <input class="form-control" type="text"  name="END_DATE" id="example-date-input" required>
                   </div>
                  
-                      <div class="form-group row " id="sale" >
-                        <label for="example-price-input"  style="float: left;" >Selling Cost</label>                        
-                        <input class="form-control" type="number" name="Sell_price" id="example-price-input">
-                      </div>
+                     
                       
                     <div class="form-group">
                       <div class="form-check">
@@ -121,8 +154,8 @@
                     </div>
                     </div>
   
-                    <button class="btn btn-primary" type="submit" >Submit form</button>
-                    <p style="color: red; margin-left: 100px;"><%= error %></p>
+                    <button class="btn btn-primary btn-submit" type="submit">Submit</button>
+                    <p style="color: red; margin-left: 100px;"><%=error %></p>
                   </form>
                   
                   <script>
@@ -144,19 +177,17 @@
                       });
                     }, false);
                   })();
- 
- 
                   function show(){
                     var b = document.getElementById("sr");
                     var a = b.options[b.selectedIndex].value;
                    
-                    if(a==0)
+                    if(a=="Sale")
                     {  
                        document.getElementById("sale").style.display="block";
                        document.getElementById("rent").style.display="none";
                        document.getElementById("rent1").style.display="none";
                     }
-                    if(a==1)
+                    if(a=="Rent")
                     { 
                       document.getElementById("rent").style.display="block";
                       document.getElementById("sale").style.display="none";
@@ -165,12 +196,10 @@
                   }
                   </script>
      
- 
+
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
- 
-

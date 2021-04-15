@@ -9,6 +9,32 @@
       #flat{
         display: none;
       }
+        .wrap {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .box1 {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .card {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        body {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .btn {
+          background-color: seagreen;
+        }
+        .form-group {
+          font-weight: bold;
+        }
     </style>
 </head> 
 <body>
@@ -22,9 +48,9 @@
             <li class="nav-item active">
               <a class="nav-link" href="/home/dashboard">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item active"><p class="nav-link">Welcome : <%= user.Firstname %> <%= user.Lastname %></p></li>
-            <li class="nav-item active"><p class="nav-link">Email: <%= user.Email_ID %></p></li>
-            <li class="nav-item active"><p class="nav-link">Contact: <%= user.Phone_Number %></p></li>
+            <li class="nav-item active"><p class="nav-link">Welcome : <%=user.Firstname %> <%=user.Lastname %></p></li>
+            <li class="nav-item active"><p class="nav-link">Email: <%=user.Email_ID %></p></li>
+            <li class="nav-item active"><p class="nav-link">Contact: <%=user.Phone_Number %></p></li>
             <li class="nav-item active"><a class="nav-link" href="/home/logout">Logout</a></li>
             
                 
@@ -36,27 +62,27 @@
       <div class="wrap" >
        
         <div class="box3" style="margin-bottom: 40px; text-align: center;"> 
-          <b style="color: red; text-align: center;">If seller not listed in the list, then first add seller :</b>
-         <br> <a href="/agent/add/seller" class="btn btn-primary" style="padding: 15px 40px 15px 40px; margin-top: 10px;">Add Seller</a>
+        <b style="color: red; text-align: center;">If seller not listed in the list, then first add seller :</b>
+        <br> <a href="/agent/add/seller" class="btn btn-primary" style="padding: 15px 40px 15px 40px; margin-top: 10px;">Add Seller</a>
         </div>
          
         <div class="card">
 
             <div class="card-body box2">
-              <strong>Add A Property</strong>
-
+              <strong style="font-size: 20px">ADD PROPERTY<br><br></strong>
+              
               <form  action="/agent/add/property" method="POST">
               
                   
                 
                   <div class="form-group row">
-                  <label  for="inlineFormCustomSelect">Select Seller</label>
+                  <label  for="inlineFormCustomSelect" style="font-weight: bold;">Select Seller</label>
                   <select class="custom-select " id="inlineFormCustomSelect" required name ="seller">
                     <option selected  >Choose...</option>
                     <%if(Data.length!=0){
                       Data.forEach(function(data){
-                      %>
-                    <option value="<%= data.ID%>" ><%= data.Firstname%> <%= data.Lastname%></option>
+                    %>
+                    <option value="<%= data.O_ID%>" ><%= data.Firstname%> <%= data.Lastname%></option>
                     
                     <% })} %>
                     
@@ -70,17 +96,13 @@
             
                     <div class="form-group row">
                       <label  for="inlineFormCustomSelect">Property Status</label>
-                      <select class="custom-select status" id="inlineFormCustomSelect" required name="status">
+                      <select class="custom-select status" id="inlineFormCustomSelect" required name="Sale_or_Rent">
                         <option selected name="Sale_or_Rent">Choose...</option>
-                        <option value="Sale" name="Sale_or_Rent">For Sale</option>
-                        <option value="Rent" name="Sale_or_Rent">For Rent</option>
+                        <option value='Sale' name="Sale_or_Rent">For Sale</option>
+                        <option value='Rent' name="Sale_or_Rent">For Rent</option>
                       </select>
                       </div>
                    
-                      <div class="form-group row" id="flat">
-                        <label for="example-text-input2"  style="float: left;">Property Name</label>
-                          <input class="form-control" type="text"  name ="pname" id="example-text-input2">
-                      </div>
                     
                     
                       <div class="form-group row">

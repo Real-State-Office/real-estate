@@ -88,21 +88,21 @@
                     <div class="main"  style="margin : 60px auto 0 auto; width: 90%; height: auto; text-align: center; border-radius: 10px;box-shadow: 1px 1px 10px 1px; ">
                         <br><br> 
                         <div style="width: 80%; margin :0px auto 0px auto; height: 50px;">
-                           <span id="a_name" style="float:left; font-weight : 700 ;font-size: 26px; margin-left: 50px; margin-right: 20px;">Name : <%= name %></span>
-                           <span id="a_name" style="float:right; font-weight : 700 ;font-size: 26px; margin-left: 20px; margin-right: 50px;">Agent ID : <%= id %></span>    
+                           <span id="a_name" style="float:left; font-weight : 700 ;font-size: 26px; margin-left: 50px; margin-right: 20px;">Name : <%=name %></span>
+                           <span id="a_name" style="float:right; font-weight : 700 ;font-size: 26px; margin-left: 20px; margin-right: 50px;">Agent ID : <%=id %></span>    
                         </div>
           
           
                        <div style="width: 80%; height:200px; margin: 30px auto 0px auto; ">
-                          <div style="float: left;width: 200px; height: 150px; margin-left: 40px; border-radius: 10px;box-shadow: 1px 1px 10px 1px; text-align: center; background-color: #0275d8;">
+                          <div style="float: left;width: 200px; height: 150px; margin-left: 40px; border-radius: 10px;box-shadow: 1px 1px 10px 1px; text-align: center; background-color: seagreen;">
                               <br><br> <p style="border-radius: 50%; background-color: white; padding: 10px; font-weight: 500;"><%= sale %></p><br><br>
                               <p style="color: white; font-weight: 500;">Total Sale</p>
                           </div>
-                          <div style="float: right;border-radius: 10px;box-shadow: 1px 1px 10px 1px; width: 200px; height: 150px; margin-right: 40px; text-align: center; background-color: #0275d8;">
+                          <div style="float: right;border-radius: 10px;box-shadow: 1px 1px 10px 1px; width: 200px; height: 150px; margin-right: 40px; text-align: center; background-color: seagreen;">
                              <br><br> <p style="border-radius: 50%; background-color: white; padding: 10px; font-weight: 500;"><%= pr %></p><br><br>
                               <p style="color: white; font-weight: 500;">Properties on Rent</p>
                           </div>
-                          <div style="border-radius: 10px;box-shadow: 1px 1px 10px 1px; width: 200px; height: 150px; margin: auto; background-color: #0275d8;">
+                          <div style="border-radius: 10px;box-shadow: 1px 1px 10px 1px; width: 200px; height: 150px; margin: auto; background-color: seagreen;">
                               <br><br> <p style="border-radius: 50%; background-color: white; padding: 10px; font-weight: 500;"><%= ps %></p><br><br>
                               <p style="color: white; font-weight: 500;">Properties sold</p>
                           </div>
@@ -111,9 +111,9 @@
                         
                        <div style="width: 90%; height:100px; margin: 30px auto 0px auto; ">
                        
-                       <div  onclick="table_show('table1');" style="float :right; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :25%; margin: 20px 20px 0px 20px;  ">PROPERTIES SOLD</div>
-                       <div onclick="table_show('table2');" style="float: left; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :25%; margin: 20px 20px 0px 20px; ">PROPERTIES RENTED</div>
-                       <div onclick="table_show('table3');" style="float: left; padding :20px; background-color: #0275d8; color :white; border-radius: 10px; width :25%; margin: 20px 72px 0px 72px; ">PROPERTIES PENDING</div>
+                       <div  onclick="table_show('table1');" style="float :right; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :25%; margin: 20px 20px 0px 20px;  ">PROPERTIES SOLD</div>
+                       <div onclick="table_show('table2');" style="float: left; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :25%; margin: 20px 20px 0px 20px; ">PROPERTIES RENTED</div>
+                       <div onclick="table_show('table3');" style="float: left; padding :20px; background-color: seagreen; color :white; border-radius: 10px; width :25%; margin: 20px 72px 0px 72px; ">PROPERTIES PENDING</div>
                         
                       </div>
                       
@@ -122,10 +122,10 @@
                             <%
                               if(1){ %>
                                   <tr> 
-                                      <th style="width: 134px;">Tran. ID</th>
-                                      <th style="width: 134px;">Prop. ID</th>
+                                      <th style="width: 134px;">Transaction ID</th>
+                                      <th style="width: 134px;">Property ID</th>
                                       <th style="width: 450px; overflow:hidden">Address</th>
-                                      <th style="width: 134px;">BHK</th>
+                                      <th style="width: 134px;">Bedroom</th>
                                       <th style="width: 154px;">Selling Price</th>
                                       <th style="width: 134px;">Sale Date</th>
                                  </tr>
@@ -139,12 +139,11 @@
                               <tr>
                                   <tr>
                                       <td><%=data.TS_ID %></td>
-                                      <td><%=data.p_id %></td>
-                                      <td><%=data.adress %></td>
-                                      <td><%=data.bhk %></td>
-                                      <td><%=data.sell_price %></td>
-                                      <td><% var a =  data.s_date.toDateString().substring(4,16);%>
-                                          <%= a%></td>
+                                      <td><%=data.P_ID %></td>
+                                      <td><%=data.Address %></td>
+                                      <td><%=data.Bedroom %></td>
+                                      <td><%=data.Sell_price %></td>
+                                      <td><%=data.S_date%></td>
                                      
                                   </tr>
                               </tr>
@@ -166,10 +165,10 @@
                                 <%
                                 if(1){   %>
                                     <tr> 
-                                        <th style="width: 134px;">Tran. ID</th>
-                                        <th style="width: 134px;">Prop. ID</th>
+                                        <th style="width: 134px;">Transaction ID</th>
+                                        <th style="width: 134px;">Property ID</th>
                                         <th style="width: 400px; overflow:hidden">Address</th>
-                                        <th style="width: 134px;">BHK</th>
+                                        <th style="width: 134px;">Bedroom</th>
                                         <th style="width: 154px;">Rent</th>
                                         <th style="width: 134px;">Sale Date</th>
                                         <th style="width: 134px;">End Date</th>
@@ -183,14 +182,12 @@
             
                                 <tr>
                                     <td><%=data.TR_ID %></td>
-                                    <td><%=data.p_id %></td>
-                                    <td><%=data.adress %></td>
-                                    <td><%=data.bhk %></td>
-                                    <td><%=data.rent %></td>
-                                    <td><% var a =  data.st_date.toDateString().substring(4,16);%>
-                                        <%= a%></td>
-                                    <td><% var a =  data.end_date.toDateString().substring(4,16);%>
-                                        <%= a%></td>
+                                    <td><%=data.P_ID %></td>
+                                    <td><%=data.Address %></td>
+                                    <td><%=data.Bedroom %></td>
+                                    <td><%=data.Rent %></td>
+                                    <td><%=data.Start_Date%></td>
+                                    <td><%=data.END_DATE%></td>
                                 </tr>
             
                                 <%  i++;}) %>
@@ -203,13 +200,13 @@
                               <table id="table3">
                                   <tr>
                                       <th style="width: 134px;">P_ID</th>
-                                      <th style="width: 134px;">L_date</th>
+                                      
                                       <th style="width: 400px; overflow:hidden">Address</th>
                                       <th style="width: 134px;">Prop. price</th>
                                       <th style="width: 134px;">Prop size(sq.ft) </th>
-                                      <th style="width: 134px;">BHK</th>
-                                      <th style="width: 134px;">Tag</th>
-                                      <th style="width: 134px;">Type</th>
+                                      <th style="width: 134px;">Bedroom</th>
+                                      <th style="width: 134px;">Sale or Rent</th>
+                                      
                                   </tr>
                                   <%
                                       if(userDataPen.length!=0){
@@ -218,15 +215,13 @@
                                   %>
                                       <tr>
                                           <td><%=data.ID %></td>
-                                          <td><% var a =  data.L_date.toDateString().substring(4,16);%>
-                                             <%= a%>   
-                                          </td>
-                                          <td><%=data.adress %></td>
-                                          <td><%=data.P_sug_price %></td>
-                                          <td><%=data.P_size %></td>
-                                          <td><%=data.bhk %></td>
-                                          <td><%if(data.P_tag===1){%> Rent <%} else {%> Sale <% } %></td>
-                                          <td><%if(data.P_type===1){%> Apartm. <%} else {%> House <% } %></td>
+                                          
+                                          <td><%=data.Address %></td>
+                                          <td><%=data.Original_price %></td>
+                                          <td><%=data.Area %></td>
+                                          <td><%=data.Bedroom %></td>
+                                          <td><%if(data.Sale_or_Rent==='Rent'){%> Rent <%} else {%> Sale <% } %></td>
+                                          
                                       </tr>
               
                                   <%  i++;}) %>

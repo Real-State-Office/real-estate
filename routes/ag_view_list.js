@@ -45,7 +45,7 @@ router.use(bp.urlencoded( {extended: true}));
       res.redirect("/login");
       return;
    }
-    var sql = "select b.ID,b.Firstname,b.Lastname from buyer b, sale_details ts where (ts.B_ID = " + user.ID + " and b.B_ID = ts.B_ID) union select b.ID,b.Firstname,b.Lastname from buyer b, sale_details tr where (tr.B_ID =" + user.ID +" and b.B_ID = tr.B_ID)"
+    var sql = "select b.B_ID,b.Firstname,b.Lastname from buyer b, sale_details ts where (ts.ID = " + user.ID + " and b.B_ID = ts.B_ID) union select b.B_ID,b.Firstname,b.Lastname from buyer b, sale_details tr where (tr.ID =" + user.ID +" and b.B_ID = tr.B_ID)"
  
     
     console.log(sql);
@@ -66,7 +66,7 @@ router.get('/seller',function(req,res){
       res.redirect("/login");
       return;
    }
-    con.query("select o.ID,o.Firstname,o.Lastname from owner o,property p where o.O_ID=p.O_ID and p.P_ID = "+user.ID,(err, agnt) => {
+    con.query("select o.O_ID,o.Firstname,o.Lastname from owner o,property p where o.O_ID=p.O_ID and p.ID = "+user.ID,(err, agnt) => {
       var user = req.session.user;
       res.render("ag_view_list.ejs",{user : user, userData : agnt, tit : "Seller", flag : 1});
      });
@@ -81,7 +81,7 @@ router.get('/property',function(req,res){
     res.redirect("/login");
     return;
  }
-  con.query("select * from property where Available='Yes' and P_ID= "+user.ID,(err, agnt) => {
+  con.query("select * from property where Available='Yes' and ID= "+user.ID,(err, agnt) => {
     var user = req.session.user;
   
   res.render("ag_view_list.ejs",{user: user, userData : agnt, tit : "Available Properties", flag : 2});
@@ -99,14 +99,12 @@ router.post('/property',function(req,res){
  }
   var mx = req.body.max_price;
   var mn = req.body.min_price;
-  var ad = req.body.addres;
-  var s = req.body.sale;
-  var r = req.body.rent;
-  var a = req.body.aprt;
-  var h = req.body.house;
-  var o = req.body.oid;
+  var ad = req.body.Address;
+  var s = req.body.Sale;
+  var r = req.body.Rent;
+  var o = req.body.O_ID;
   
-  var str = "select * from property where Available='Yes' and P_ID= "+user.ID;
+  var str = "select * from property where Available='Yes' and ID= "+user.ID;
   if(mx.length>0)
     { str = str + " and Original_price<="+Number(mx);}
   if(mn.length>0)
@@ -114,14 +112,10 @@ router.post('/property',function(req,res){
   if(ad.length>0)
     { str = str + " and Address like '%"+ad+"%'";}
   if(s != null)
-    { str = str + " and Sale_or_Rent=’Sale’";}
+    { str = str + " and Sale_or_Rent='Sale'";}
   if(r != null)
-    { str = str + " and Sale_or_Rent=’Rent’";}
-    if(h != null)
-    { str = str + " and Sale_or_Rent =’Sale’";}
-  if(a != null)
-    { str = str + " and Sale_or_Rent=’Rent’";}
-    if(o.length>0)
+    { str = str + " and Sale_or_Rent='Rent'";}
+  if(o.length>0)
     { str = str + " and O_ID="+Number(o);}
          
   con.query(str,(err, agnt) => {

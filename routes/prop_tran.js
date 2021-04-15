@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');  
-
-
-
+ 
+ 
+ 
 var con = mysql.createConnection({  
   host: '35.213.189.162',
   user: 'urkgr9wtuqha6',
@@ -14,8 +14,8 @@ con.connect(function(err) {
   if (err) throw err;  
   console.log("Connected!");  
 });  
-
-
+ 
+ 
  router.get('/:thing',function(req,res){
   var user =  req.session.user;
   if(user == null){
@@ -25,48 +25,51 @@ con.connect(function(err) {
       var d = req.params.thing;
       if(d==="rent") 
       {
-        con.query("select TR_ID,st_date,end_date,t.a_id,t.p_id,rent,bhk,adress,t.b_id from property p ,tran_rent t where p.ID=t.p_id",(err, agnt) => {
+        con.query("select TR_ID,Start_Date,END_DATE,t.ID,t.P_ID,Rent,Bedroom,Address,t.B_ID from property p ,rent_details t where p.P_ID=t.P_ID",(err, agnt) => {
         console.log(agnt);
+        
         res.render("prop_tran.ejs",{ user: user,userData : agnt ,tit : "Rented Properties", flag : 2 });
        }); 
       }
       if(d==="sale") 
       {
-        con.query("select TS_ID,s_date,t.a_id,t.p_id,sell_price,bhk,adress,t.b_id from property p ,tran_sale t where p.ID=t.p_id",(err, agnt) => {
-        res.render("prop_tran.ejs",{user: user,userData : agnt , tit : "Sold Properties", flag : 1});
+        con.query("select TS_ID,S_date,t.ID,t.P_ID,Sell_price,Bedroom,Address,t.B_ID from property p ,sale_details t where p.P_ID=t.P_ID",(err, agnt) => {
+         
+          res.render("prop_tran.ejs",{user: user,userData : agnt , tit : "Sold Properties", flag : 1});
+        
        });
       }
   
-
+ 
       router.post('/sale',function(req,res){
         var user =  req.session.user;
         if(user == null){
-          res.redirect("/login");
+          res.redirect("/loginOffice");
           return;
        }
         var mx = req.body.max_price;
         var mn = req.body.min_price;
-        var ad = req.body.addres;
-        var sd = req.body.date;
-        var b = req.body.bhk;
-        var a = req.body.aid;
-        var by = req.body.bid;
-        var str = "select TS_ID,s_date,t.a_id,t.p_id,sell_price,bhk,adress,t.b_id from property p ,tran_sale t where p.ID=t.p_id ";
+        var ad = req.body.Address;
+        var sd = req.body.S_date;
+        var b = req.body.Bedroom;
+        var a = req.body.ID;
+        var by = req.body.B_ID;
+        var str = "select TS_ID,S_date,t.ID,t.P_ID,Sell_price,Bedroom,Address,t.B_ID from property p ,sale_details t where p.P_ID=t.P_ID ";
         console.log(req.body);
         if(mx.length>0)
-          { str = str + " and t.sell_price <="+Number(mx);}
+          { str = str + " and t.Sell_price <="+Number(mx);}
         if(mn.length>0)
-          { str = str + " and t.sell_price >="+Number(mn);}
+          { str = str + " and t.Sell_price >="+Number(mn);}
         if(ad.length>0)
-          { str = str + " and adress like '%"+ad+"%'";}
+          { str = str + " and Address like '%"+ad+"%'";}
         if(sd.length>0)
-          { str = str + " and s_date = '"+sd+"'";}
+          { str = str + " and S_date = '"+sd+"'";}
         if(b.length>0)
-          { str = str + " and bhk ="+Number(b);}
+          { str = str + " and Bedroom ="+Number(b);}
           if(a.length>0)
-          { str = str + " and t.a_id ="+Number(a);}
+          { str = str + " and t.ID ="+Number(a);}
           if(by.length>0)
-          { str = str + " and t.b_id ="+Number(by);}
+          { str = str + " and t.B_ID ="+Number(by);}
         
                console.log(str);
         con.query(str,(err, agnt) => {
@@ -81,33 +84,33 @@ con.connect(function(err) {
     router.post('/rent',function(req,res){
         var user =  req.session.user;
         if(user == null){
-          res.redirect("/login");
+          res.redirect("/loginOffice");
           return;
        }
         var mx = req.body.max_price;
         var mn = req.body.min_price;
-        var ad = req.body.addres;
-        var sd = req.body.date;
-        var b = req.body.bhk;
-        var a = req.body.aid;
-        var by = req.body.bid;
+        var ad = req.body.Address;
+        var sd = req.body.Start_Date;
+        var b = req.body.Bedroom;
+        var a = req.body.ID;
+        var by = req.body.B_ID;
         
-        var str = "select TR_ID,st_date,end_date,t.a_id,t.p_id,rent,bhk,adress,t.b_id from property p ,tran_rent t where p.ID=t.p_id ";
+        var str = "select TR_ID,Start_Date,END_DATE,t.ID,t.P_ID,Rent,Bedroom,Address,t.B_ID from property p ,rent_details t where p.P_ID=t.P_ID ";
         console.log(req.body);
         if(mx.length>0)
-          { str = str + " and t.rent <="+Number(mx);}
+          { str = str + " and t.Rent <="+Number(mx);}
         if(mn.length>0)
-          { str = str + " and t.rent >="+Number(mn);}
+          { str = str + " and t.Rent >="+Number(mn);}
         if(ad.length>0)
-          { str = str + " and adress like '%"+ad+"%'";}
+          { str = str + " and Address like '%"+ad+"%'";}
         if(sd.length>0)
-          { str = str + " and st_date = '"+sd+"'";}
+          { str = str + " and Start_Date = '"+sd+"'";}
         if(b.length>0)
-          { str = str + " and bhk ="+Number(b);}
+          { str = str + " and Bedroom ="+Number(b);}
           if(a.length>0)
-          { str = str + " and t.a_id ="+Number(a);}
+          { str = str + " and t.ID ="+Number(a);}
           if(by.length>0)
-          { str = str + " and t.b_id ="+Number(by);}
+          { str = str + " and t.B_ID ="+Number(by);}
         
                console.log(str);
         con.query(str,(err, agnt) => {
@@ -118,8 +121,10 @@ con.connect(function(err) {
       });
    
   });
-
-
-
+ 
+ 
+ 
   setInterval(function(){con.query('select 1');},5000);
 module.exports = router;
+ 
+

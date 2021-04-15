@@ -42,15 +42,12 @@
 
               <form  action="../../add/propertyUpdate" method="POST">
               
-                <div class="form-group row">
+                  <div class="form-group row">
                     <label for="example-bhk-input">P_ID</label>                        
-                    <input class="form-control" type="number"  name ="propid" value="<%=curr[0].ID%>" id="example-bhk-input" readonly>
+                    <input class="form-control" type="number"  name ="propid" value="<%=curr[0].P_ID%>" id="example-bhk-input" readonly>
                   </div>
 
-                  <div class="form-group row">
-                    <label for="example-date-input">Date</label>
-                    <input class="form-control" type="date"  name="date" value="<%=curr[0].L_date%>" id="example-date-input" required>
-                  </div>  
+                  
                 
                   <div class="form-group row">
                   <label  for="inlineFormCustomSelect">Select Seller</label>
@@ -60,10 +57,10 @@
                       Data.forEach(function(data){
                       %>
 
-                     <% if(data.ID != curr[0].O_ID){ %>
-                    <option value="<%= data.ID%>" ><%= data.Firstname%> <%= data.Lastname%></option>
+                     <% if(data.O_ID != curr[0].O_ID){ %>
+                    <option value="<%= data.O_ID%>" ><%= data.Firstname%> <%= data.Lastname%></option>
                     <% }else{ %>
-                    <option value="<%= data.ID%>" selected><%= data.Firstname%> <%= data.Lastname%></option>
+                    <option value="<%= data.O_ID%>" selected><%= data.Firstname%> <%= data.Lastname%></option>
 
                     <% } })} %>
                     
@@ -102,7 +99,7 @@
                         <input class="form-control" type="number"  name ="Bathroom" value="<%=curr[0].Bathroom %>" id="example-bth-input" required>
                       </div>
 
-                      <% var address = curr[0].adress.split(","); %>
+                      <% var address = curr[0].Address.split(","); %>
                       <div class="form-group row">
                         <label for="example-text-input1" >House Number/Flat Number</label>
                           <input class="form-control" type="number"  name ="hno"  value="<%=address[0]%>" id="example-text-input1" required>
@@ -110,13 +107,13 @@
 
 
                       <div class="form-group row">
-                        <label for="example-price-input"  >Cost (Rs)</label>                        
-                        <input class="form-control" type="number"  name ="Original_price="<%=curr[0].Original_price%>" id="example-price-input">
+                        <label for="example-price-input"  >Cost</label>                        
+                        <input class="form-control" type="number"  name ="Original_price" value="<%=curr[0].Original_price%>" id="example-price-input">
                       </div>
 
                       <div class="form-group row">
                         <label for="example-text-input2" >Property Name</label>
-                        <input class="form-control" type="text"  name ="pname" value="<%= address[1]%>" id="example-text-input2">
+                        <input class="form-control" type="text"  name ="pname" value="<%=address[1]%>" id="example-text-input2">
                       </div>
 
 
@@ -124,12 +121,12 @@
                       <div class="form-group row">
                         <label for="example-text-input3" >Road</label>
                       
-                        <input class="form-control" type="text"  name ="road" value="<%= address[2] %>" id="example-text-input3" required>
+                        <input class="form-control" type="text"  name ="road" value="<%=address[2] %>" id="example-text-input3" required>
                     </div>
 
                       <div class="form-group row">
                         <label for="inputZip">Zip</label>
-                        <input class="form-control" type="text"  name ="zip" id="inputZip" value="<%= address[3] %>" required>
+                        <input class="form-control" type="text"  name ="zip" id="inputZip" value="<%=address[3] %>" required>
                       </div>
 
                       <div class="form-group">
@@ -149,7 +146,7 @@
                     <p style="color: red;"><%= error %></p>
                     </form>
                     </div>
-                    </div>
+                  </div>
                   
                   <script>
                   // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -173,7 +170,7 @@
                   </script>
      
 
-    </div>
+      </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

@@ -14,9 +14,33 @@
             tr{
                 background-color: white;
             }
-            body{
-                background-color: white;
-            }
+            .wrap {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .box1 {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        .card {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 145%;
+        }
+        body {
+            background-image: url("https://images.pexels.com/photos/2501965/pexels-photo-2501965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+            background-repeat: no-repeat;
+            background-size: 100% 155%;
+        }
+        .btn {
+          background-color: seagreen;
+        }
+        .form-group {
+          font-weight: bold;
+        }
+            
         </style>
     </head>
     <body >
@@ -53,10 +77,11 @@
                     <br><br> 
                     <table style="width:80%; height: 200px;  margin :auto ;   border-spacing:0 15px;  box-shadow: 1px 1px 10px 1px; ">
                             
-                    <tr style="background-color: #0275d8; color: white; height: 40px; opacity: 70%;">
+                    <tr style="background-color: seagreen; color: white; height: 40px; opacity: 70%;">
                         <th>ID</th>
                         <th>Name</th>
-                        <th>    </th>
+                        <th>Profile</th>
+                        <th>Update</th>
                     </tr>
                     <tr></tr>
                     
@@ -66,19 +91,24 @@
                         userData.forEach(function(data){
                         %>
                     <tr>
-                        <td><%=data.ID %></td>
-                        <td><%=data.Firstname+" "+data.Lastname %></td>
+                        
                         <% if(tit === "Agent") { %>
+                            <td><%=data.ID %></td>
+                        <td><%=data.Firstname+" "+data.Lastname %></td>
                         <td><a href="/office/report/<%=data.ID%>">Report</a></td>
                         <td><a href="/office/profile/a<%=data.ID%>">Profile</a></td>
                         <% } %>
                         <% if(tit === "Buyer") { %>
-                            <td><a href="/office/profile/bA<%=data.ID%>">Profile</a></td>
-                            <td><a href="/agent/add/buyerUpdate/<%=data.ID%>">Update</a></td>
+                            <td><%=data.B_ID %></td>
+                             <td><%=data.Firstname+" "+data.Lastname %></td>
+                            <td><a href="/office/profile/bA<%=data.B_ID%>">Profile</a></td>
+                            <td><a href="/agent/add/buyerUpdate/<%=data.B_ID%>">Update</a></td>
                         <% } %>
                         <% if(tit === "Seller") { %>
-                            <td><a href="/office/profile/sA<%=data.ID%>">Profile</a></td>
-                            <td><a href="/agent/add/sellerUpdate/<%=data.ID%>">Update</a></td>
+                            <td><%=data.O_ID %></td>
+                             <td><%=data.Firstname+" "+data.Lastname %></td>
+                            <td><a href="/office/profile/sA<%=data.O_ID%>">Profile</a></td>
+                            <td><a href="/agent/add/sellerUpdate/<%=data.O_ID%>">Update</a></td>
                         <% } %>
                     </tr>
 
@@ -106,54 +136,47 @@
                         <label for="max" style="margin-left: 20px;">Max. Price</label>
                         <input type="text" name="max_price" id="max" style="border-radius: 4px; width: 100px;">
                         <label for="sale" style="margin-left: 20px;">Sale</label>
-                        <input type="checkbox" name="sale" id="sale" >
+                        <input type="checkbox" name="Sale" id="sale" >
                         <label for="rent" style="margin-left: 20px; " >Rent</label>
-                        <input type="checkbox" name="rent" id="rent" >
-                        <label for="house" style="margin-left: 20px;">House</label>
-                        <input type="checkbox" name="house" id="house" >
-                        <label for="aprt" style="margin-left: 20px; " >Apart.</label>
-                        <input type="checkbox" name="aprt" id="aprt" >
+                        <input type="checkbox" name="Rent" id="rent" >
+                       
                         <label for="oid" style="margin-left: 20px; " >Own.ID</label>
                     <input type="number" name="O_ID" id="oid" style="border-radius: 4px; width: 50px;">
                         <label for="address" style="margin-left: 20px; ">Address</label>
                         <input type="text" name="Address" id="address" style="margin-right: 20px;border-radius: 4px;">
-                        <input type="submit" style="padding :5px; background-color: #0275d8; color :white; border-radius: 10px; ">
+                        <input type="submit" style="padding :5px; background-color: seagreen; color :white; border-radius: 10px; ">
                     </form>
                     <br>
                     <table style="width:90%; height: 200px;  margin :auto ;   border-spacing:0 15px;   border-radius: 10px; box-shadow: 1px 1px 10px 1px; ">
                     
-                    <tr style="background-color: #0275d8; color: white; height: 40px; opacity: 70%; ">
+                    <tr style="background-color: seagreen; color: white; height: 40px; opacity: 70%; ">
                             <th>P_ID</th>
                             <th>Own_ID</th>
-                            <th>L_date</th>
+                            
                             <th>Address</th>
                             <th>Prop. price</th>
                             <th>Prop size </th>
-                            <th>BHK</th>
+                            <th>Bedroom</th>
                             <th>Tag</th>
-                            <th>Type</th>
+                            
                             <th>Update</th>
-                            <th>UnList</th>
                     </tr>
-                    <%
+                       <%
                         if(userData.length!=0){
                         var i=1;
                         userData.forEach(function(data){
-                    %>
+                       %>
                         <tr>
                             <td><%=data.ID %></td>
-                            <td><a href="/office/profile/s<%=data.o_ID%>"><%=data.o_ID %></a></td>
-                            <td><% var a =  data.L_date.toDateString().substring(4,16);%>
-                               <%= a%>   
-                            </td>
-                            <td><%=data.adress %></td>
-                            <td><%=data.P_sug_price %></td>
-                            <td><%=data.P_size %></td>
-                            <td><%=data.bhk %></td>
-                            <td><%if(data.P_tag===1){%> Rent <%} else {%> Sale <% } %></td>
-                            <td><%if(data.P_type===1){%> Apartm. <%} else {%> House <% } %></td>
-                            <td><a href="../../agent/add/propertyUpdate/<%=data.ID%>">Update</a></td>
-                            <td><a href="../../agent/add/propertyUnlist/<%=data.ID%>">UnList</a></td>
+                            <td><a href="/office/profile/s<%=data.O_ID%>"><%=data.O_ID %></a></td>
+                           
+                            <td><%=data.Address %></td>
+                            <td><%=data.Original_price%></td>
+                            <td><%=data.Area %></td>
+                            <td><%=data.Bedroom %></td>
+                            <td><%if(data.Sale_or_Rent==='Rent'){%> Rent <%} else {%> Sale <% } %></td>
+                            
+                            <td><a href="../../agent/add/propertyUpdate/<%=data.O_ID%>">Update</a></td>
                         </tr>
 
                     <%  i++;}) %>

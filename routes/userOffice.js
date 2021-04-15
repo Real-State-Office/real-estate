@@ -62,8 +62,8 @@ exports.dashboard = function(req, res, next){
       res.redirect("/loginOffice");
       return;
    }
-   var uname = user.Username;
-   console.log('ddd='+uname);
+   var username = user.Username;
+   console.log('ddd='+username);
   
  
    var pc,ac,tc,bc,sc,ts,c2;
@@ -89,7 +89,7 @@ exports.dashboard = function(req, res, next){
      
      //res.render("office.ejs",{p_c: pc,a_c : ac, b_c : bc,s_c : sc, t_c : tc ,t_s : ts});
  
-var sql="SELECT * FROM office_login WHERE Username='"+uname+"'";
+var sql="SELECT * FROM office_login WHERE Username='"+username+"'";
  
    db.query(sql, function(err, results){
       console.log("Logged in as: ");
@@ -112,14 +112,14 @@ exports.logout=function(req,res){
 
 //--------------------------------render user details after login--------------------------------
 exports.profile = function(req, res){
- 
+
    var userId = req.session.userId;
    if(userId == null){
       res.redirect("/loginOffice");
       return;
    }
- 
-   var sql="SELECT * FROM userOffice WHERE `ID`='"+userId+"'";          
+
+   var sql="SELECT * FROM usersOffice WHERE `id`='"+userId+"'";          
    db.query(sql, function(err, result){  
       res.render('profileOffice.ejs',{data:result});
    });
@@ -131,8 +131,8 @@ exports.editprofile=function(req,res){
       res.redirect("/login");
       return;
    }
- 
-   var sql="SELECT * FROM `user` WHERE `ID`='"+userId+"'";
+
+   var sql="SELECT * FROM `users` WHERE `id`='"+userId+"'";
    db.query(sql, function(err, results){
       res.render('edit_profile.ejs',{data:results});
    });

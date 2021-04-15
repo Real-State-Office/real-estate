@@ -41,7 +41,7 @@ var mysql = require('mysql');
         res.redirect("/loginOffice");
         return;
      }
-    con.query("select ID,Firstname,Lastname from buyer",(err, agnt) => {
+    con.query("select B_ID,Firstname,Lastname from buyer",(err, agnt) => {
       var user =  req.session.user;
       res.render("view_aggent.ejs",{user : user,userData : agnt, tit : "Buyer",flag : 1});
     
@@ -57,7 +57,7 @@ router.get('/seller',function(req,res){
         res.redirect("/loginOffice");
         return;
      }
-    con.query("select ID,Firstname,Lastname from owner",(err, agnt) => {
+    con.query("select O_ID,Firstname,Lastname from owner",(err, agnt) => {
       var user =  req.session.user;
       res.render("view_aggent.ejs",{user : user, userData : agnt, tit : "Seller", flag : 1});
      });
@@ -72,7 +72,7 @@ router.get('/property',function(req,res){
         res.redirect("/loginOffice");
         return;
      }
-  var str = "select * from property where P_status=1";
+  var str = "select * from property where Available='Yes'";
   
          
   con.query(str,(err, agnt) => {
@@ -90,7 +90,7 @@ router.get('/unlistproperty',function(req,res){
         res.redirect("/loginOffice");
         return;
      }
-  var str = "select * from property where P_status=2";
+  var str = "select * from property where Available='No'";
   
          
   con.query(str,(err, agnt) => {
@@ -112,33 +112,27 @@ router.post('/property',function(req,res){
      }
   var mx = req.body.max_price;
   var mn = req.body.min_price;
-  var ad = req.body.addres;
-  var s = req.body.sale;
-  var r = req.body.rent;
-  var a = req.body.aprt;
-  var h = req.body.house;
-  var ad = req.body.aid;
-  var o = req.body.oid;
+  var address = req.body.Address;
+  var s = req.body.Sale;
+  var r = req.body.Rent;
+  var ad = req.body.ID;
+  var o = req.body.O_ID;
 
-  var str = "select * from property where P_status=1";
+  var str = "select * from property where Available='Yes'";
   if(mx.length>0)
-    { str = str + " and P_sug_price<="+Number(mx);}
+    { str = str + " and Original_price<="+Number(mx);}
   if(mn.length>0)
-    { str = str + " and P_sug_price>="+Number(mn);}
-  if(ad.length>0)
-    { str = str + " and adress like '%"+ad+"%'";}
+    { str = str + " and Original_price>="+Number(mn);}
+  if(address.length>0)
+    { str = str + " and Address like '%"+address+"%'";}
   if(s != null)
-    { str = str + " and P_tag=0";}
+    { str = str + " and Sale_or_Rent='Sale'";}
   if(r != null)
-    { str = str + " and P_tag=1";}
-    if(h != null)
-    { str = str + " and P_type=0";}
-  if(a != null)
-    { str = str + " and P_type=1";}
+    { str = str + " and Sale_or_Rent='Rent'";}
     if(ad.length>0)
-    { str = str + " and a_ID ="+Number(ad);}
+    { str = str + " and ID ="+Number(ad);}
     if(o.length>0)
-    { str = str + " and o_ID ="+Number(o);}
+    { str = str + " and O_ID ="+Number(o);}
          
   con.query(str,(err, agnt) => {
     var user =  req.session.user;
@@ -155,33 +149,29 @@ router.post('/unlistproperty',function(req,res){
      }
   var mx = req.body.max_price;
   var mn = req.body.min_price;
-  var ad = req.body.addres;
-  var s = req.body.sale;
-  var r = req.body.rent;
-  var a = req.body.aprt;
-  var h = req.body.house;
-  var ad = req.body.aid;
-  var o = req.body.oid;
+  var address = req.body.Address;
+  var s = req.body.Sale;
+  var r = req.body.Rent;
   
-  var str = "select * from property where P_status=2";
+  var ad = req.body.ID;
+  var o = req.body.O_ID;
+  
+  var str = "select * from property where Available='No'";
   if(mx.length>0)
-    { str = str + " and P_sug_price<="+Number(mx);}
+    { str = str + " and Original_price<="+Number(mx);}
   if(mn.length>0)
-    { str = str + " and P_sug_price>="+Number(mn);}
-  if(ad.length>0)
-    { str = str + " and adress like '%"+ad+"%'";}
+    { str = str + " and Original_price>="+Number(mn);}
+  if(address.length>0)
+    { str = str + " and Address like '%"+address+"%'";}
   if(s != null)
-    { str = str + " and P_tag=0";}
+    { str = str + " and Sale_or_Rent='Sale'";}
   if(r != null)
-    { str = str + " and P_tag=1";}
-    if(h != null)
-    { str = str + " and P_type=0";}
-  if(a != null)
-    { str = str + " and P_type=1";}
+    { str = str + " and Sale_or_Rent='Rent'";}
+
   if(ad.length>0)
-    { str = str + " and a_ID ="+Number(ad);}
+    { str = str + " and ID ="+Number(ad);}
     if(o.length>0)
-    { str = str + " and o_ID ="+Number(o);}
+    { str = str + " and O_ID ="+Number(o);}
 
   con.query(str,(err, agnt) => {
     var user =  req.session.user;
@@ -190,42 +180,6 @@ router.post('/unlistproperty',function(req,res){
 
 });
 
-router.post('/propertylistagain/:thing',function(req,res){
-  var user =  req.session.user;
-      if(user == null){
-        res.redirect("/loginOffice");
-        return;
-     }
-  var pid=req.params.thing;
- 
-  var ad =req.body.aid;
-  //con.query("update property set P_status=1 where ID="+pid,(err, agnt1) => {
-  con.query("update property set P_status=1 where ID="+pid,(err, agnt) => {    
-    if(err)console.log(err);
-    con.query("update property set a_ID="+ad+" where ID="+pid,(err, agnt) => { 
-      res.redirect("/office/view/unlistproperty");
-    });
-  });
- 
-});
-
-router.post('/propertychangeagent/:thing',function(req,res){
-  var user =  req.session.user;
-      if(user == null){
-        res.redirect("/loginOffice");
-        return;
-     }
-  var pid=req.params.thing;
- 
-  var ad =req.body.aid;
-  //con.query("update property set P_status=1 where ID="+pid,(err, agnt1) => {
-
-    con.query("update property set a_ID="+ad+" where ID="+pid,(err, agnt) => { 
-      res.redirect("/office/view/property");
-   
-  });
- 
-});
 
 
 setInterval(function(){con.query('select 1');},5000);

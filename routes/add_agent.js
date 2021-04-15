@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');  
 
 var bp = require('body-parser');
-
+ 
 
 router.use(bp.urlencoded( {extended: true}));
 
@@ -52,10 +52,10 @@ router.post('/agent',function(req,res){
       res.redirect("/loginOffice");
       return;
    }
-     var s = "select * from agent where Email="+"'"+req.body.email+"'";
+     var s = "select * from agent where Email_ID="+"'"+req.body.Email_ID+"'";
      
-     var s = "insert into agent(Firstname,Lastname,Email,contact) values ("+"'"+req.body.first_name+"',"+"'"+req.body.last_name+"',";
-     s = s+"'"+req.body.email+"',"+"'"+req.body.Contact+"')";
+     var s = "insert into agent(Firstname,Lastname,Email_ID,Phone_Number) values ("+"'"+req.body.Firstname+"',"+"'"+req.body.Lastname+"',";
+     s = s+"'"+req.body.Email_ID+"',"+"'"+req.body.Phone_Number+"')";
      console.log(s);
 
 
@@ -65,14 +65,14 @@ router.post('/agent',function(req,res){
         { res.render('add_agent',{error : "Data matched! Try Again",tit : "agent"});
           }
         else
-        {  var s2 =  "select ID from agent where Email="+"'"+req.body.email+"'";
+        {  var s2 =  "select ID,Firstname from agent where Email_ID="+"'"+req.body.Email_ID+"'";
            con.query(s2,(err, agnt1) => {
                   if(err)console.log(err);   
             
                   //var s1 =  "insert into login(username,password,a_id) values ("+"'"+agnt1[0].ID+"',"+"'password',";
                  // s1 = s1 +"'"+agnt1[0].ID+"')";
                  
-                  var s1 = "insert into login(a_id,username,password) values (" + agnt1[0].ID + ",'" + agnt1[0].ID+"','password')";
+                  var s1 = "insert into login(ID,Username,Password) values (" +agnt1[0].ID+ ",'" + agnt1[0].Firstname+"','0000')";
                   
                   con.query(s1,(err, agnt2) => {
                     if(err)console.log(err);   
@@ -89,16 +89,16 @@ router.post('/agent',function(req,res){
   });
 
   router.post('/buyer',function(req,res){
-    console.log(req.body.email);
+    console.log(req.body.Email_ID);
     var user =  req.session.user;
     if(user == null){
       res.redirect("/login");
       return;
    }
-    var s = "select * from buyer where Email="+"'"+req.body.email+"'";
+    var s = "select * from buyer where Email_ID="+"'"+req.body.Email_ID+"'";
     
-    var s = "insert into buyer(Firstname,Lastname,Email,contact) values ("+"'"+req.body.first_name+"',"+"'"+req.body.last_name+"',";
-    s = s+"'"+req.body.email+"',"+"'"+req.body.Contact+"')";
+    var s = "insert into buyer(Firstname,Lastname,Email_ID,Phone_Number) values ("+"'"+req.body.Firstname+"',"+"'"+req.body.Lastname+"',";
+    s = s+"'"+req.body.Email_ID+"',"+"'"+req.body.Phone_Number+"')";
     console.log(s);
 
 
@@ -117,14 +117,14 @@ router.post('/agent',function(req,res){
  });
 
  router.post('/buyerUpdate',function(req,res){
-  console.log(req.body.email);
+  console.log(req.body.Email_ID);
   var user =  req.session.user;
   if(user == null){
     res.redirect("/login");
     return;
  }
-  var s = "select * from buyer where Email="+"'"+req.body.email+"'";
-  var s = "update buyer set Firstname='"+req.body.first_name+"', Lastname='"+req.body.last_name+"', Email ='"+req.body.email+"', contact='"+req.body.Contact+"' where ID="+req.body.ownerID;
+  var s = "select * from buyer where Email_ID="+"'"+req.body.Email_ID+"'";
+  var s = "update buyer set Firstname='"+req.body.Firstname+"', Lastname='"+req.body.Lastname+"', Email_ID='"+req.body.Email_ID+"', Phone_Number='"+req.body.Phone_Number+"' where B_ID="+req.body.B_ID;
   console.log(s);
 
 
@@ -144,16 +144,16 @@ router.post('/agent',function(req,res){
 
 
  router.post('/seller',function(req,res){
-    console.log(req.body.email);
+    console.log(req.body.Email_ID);
     var user =  req.session.user;
     if(user == null){
       res.redirect("/login");
       return;
    }
-    var s = "select * from owner where Email="+"'"+req.body.email+"'";
+    var s = "select * from owner where Email_ID="+"'"+req.body.Email_ID+"'";
     
-    var s = "insert into owner(Firstname,Lastname,Email,contact) values ("+"'"+req.body.first_name+"',"+"'"+req.body.last_name+"',";
-    s = s+"'"+req.body.email+"',"+"'"+req.body.Contact+"')";
+    var s = "insert into owner(Firstname,Lastname,Email_ID,Phone_Number) values ("+"'"+req.body.Firstname+"',"+"'"+req.body.Lastname+"',";
+    s = s+"'"+req.body.Email_ID+"',"+"'"+req.body.Phone_Number+"')";
     console.log(s);
 
 
@@ -172,15 +172,15 @@ router.post('/agent',function(req,res){
  });
 
  router.post('/sellerUpdate',function(req,res){
-  console.log(req.body.email);
+  console.log(req.body.Email_ID);
   var user =  req.session.user;
   if(user == null){
     res.redirect("/login");
     return;
  }
-  var s = "select * from owner where Email="+"'"+req.body.email+"'";
+  var s = "select * from owner where Email_ID="+"'"+req.body.Email_ID+"'";
 
-var s = "update owner set Firstname='"+req.body.first_name+"', Lastname='"+req.body.last_name+"', Email ='"+req.body.email+"', contact='"+req.body.Contact+"' where ID="+req.body.ownerID;
+var s = "update owner set Firstname='"+req.body.Firstname+"', Lastname='"+req.body.Lastname+"', Email_ID='"+req.body.Email_ID+"', Phone_Number='"+req.body.Phone_Number+"' where O_ID="+req.body.O_ID;
   console.log(s);
 
 

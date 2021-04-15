@@ -58,7 +58,7 @@ router.get("/property",function(req,res){
         return;
      }
      var propid = req.params.propid;
-        con.query("update property set Available=’No’ where ID="+propid,(err, agnt) => {
+        con.query("update property set Available='No' where P_ID="+propid,(err, agnt) => {
           var propid = req.params.propid;
           res.redirect("/agent/view/property");
       });
@@ -89,7 +89,7 @@ router.get("/buyerUpdate/:bid",function(req,res){
  
             con.query(sql,(err, agnt) => {
               var user = req.session.user;
-              res.render("ag_view_list.ejs",{user : user, userData : agnt, tit : "Buyer",flag : 1});
+              res.render("ag_view_list.ejs",{user : user, userData : agnt, tit : "buyer",flag : 1});
               })
               }
       else {
@@ -119,7 +119,7 @@ router.get("/sellerUpdate/:oid",function(req,res){
       if(err){
         con.query("select o.O_ID,o.Firstname,o.Lastname from owner o,property p where o.O_ID=p.O_ID and p.ID = "+user.ID,(err, agnt) => {
           var user = req.session.user;
-          res.render("ag_view_list.ejs",{user : user, userData : agnt, tit : "Seller", flag : 1});
+          res.render("ag_view_list.ejs",{user : user, userData : agnt, tit : "seller", flag : 1});
          });
       }
       else{
@@ -137,7 +137,7 @@ router.get("/payment",function(req,res){
  }
   con.query("select B_ID,Firstname,Lastname from buyer",(err, agnt) => {
     var user = req.session.user;
-    con.query("select P_ID,Sale_or_Rent from property where Available=’Yes’ and ID="+user.ID,(err, agnt1) => {
+    con.query("select P_ID,Sale_or_Rent from property where Available='Yes' and ID="+user.ID,(err, agnt1) => {
       res.render("payment.ejs",{user : user, error :"",Data : agnt,Data1 : agnt1});
     });
   
@@ -154,26 +154,20 @@ router.post("/property",function(req,res){
   s+= ",'"+req.body.hno+","+req.body.road+" ,"+req.body.zip+"'";
   s+=","+Number(req.body.Bedroom);
   s+=","+Number(req.body.Area);
-  s+=","+Number(req.body.Sale_or_Rent);
+  s+=",'"+req.body.Sale_or_Rent+"'";
   s+=","+Number(req.body.Original_price);
   s+=","+Number(req.body.Bathroom);
-  s+=","+Number(req.body.O_ID);
+  s+=","+Number(req.body.seller);
   s+=","+user.ID+")";
  
   console.log(s);
   con.query(s,(err, agnt) => {
-       if(err){
-       con.query("select O_ID,Firstname,Lastname from owner",(err, agnt) => {
-        var user = req.session.user;
-       res.render("addproperty.ejs",{user : user ,error : "Some Date is in wrong format !!",Data : agnt});
-       });
-      }
-      else{
+      
         con.query("select O_ID,Firstname,Lastname from owner",(err, agnt) => {
           var user = req.session.user;
-          res.render("addproperty.ejs",{user: user, error : " Property added suceesfully !",Data : agnt});
+          res.render("addproperty.ejs",{user: user, error : " Property added successfully !",Data : agnt});
           });
-      }
+      
  
   });
 });
@@ -184,14 +178,14 @@ router.post("/propertyUpdate",function(req,res){
     res.redirect("/login");
     return;
  }
-  var s = "update property set Available='Yes'"+"where Address='" +req.body.hno+",";
+  var s = "update property set Available='Yes', Address='" +req.body.hno+",";
   
   s+=req.body.pname+", ";
  
  
-  s= s +req.body.road+" "+req.body.zip+"'";
+  s= s +req.body.road+","+req.body.zip+"'";
  
-  s=s+",Bedroom ="+ req.body.bhk+",Area ="+ req.body.size+",Available="+ req.body.status +",Original_price="+ req.body.cost+",Bathroom="+ req.body.bath+"',O_ID="+ req.body.seller+",ID="+user.ID+" where P_ID="+ req.body.propid;
+  s=s+",Bedroom ="+ req.body.Bedroom+",Area ="+ req.body.Area+",Sale_or_Rent='"+ req.body.Sale_or_Rent +"',Original_price="+ req.body.Original_price+",Bathroom="+ req.body.Bathroom+",O_ID="+ req.body.seller+",ID="+user.ID+" where P_ID="+ req.body.propid;
   console.log(s);
  con.query(s,(err, agnt) => {
        if(err){
@@ -223,17 +217,17 @@ router.post("/payment",function(req,res){
     return;
  }
  
-  if(req.body.tran_type=="1")
+  if(req.body.tran_type=="Rent")
   {
     console.log("rent");
     console.log(req.body.pid);
-    con.query("select Available from property where ID="+Number(req.body.pid),(err, agnt) => {
+    con.query("select Available from property where P_ID="+Number(req.body.pid),(err, agnt) => {
       console.log(agnt);
-      if(agnt[0].P_status==0){
+      if(agnt[0].Available=="No"){
         console.log(agnt);
         con.query("select B_ID,Firstname,Lastname from buyer",(err, agnt) => {
           var user = req.session.user;
-          con.query("select P_ID,Sale_or_Rent from property where Available=’Yes’ and ID="+user.ID,(err, agnt1) => {
+          con.query("select P_ID,Sale_or_Rent from property where Available='Yes' and ID="+user.ID,(err, agnt1) => {
           res.render("payment.ejs",{user : user, error : "Property already transacted ! Not available",Data : agnt,Data1 : agnt1});
         });
       });
@@ -243,9 +237,9 @@ router.post("/payment",function(req,res){
         con.beginTransaction(function(err) {
         var s = "insert into rent_details(Rent,Start_Date,END_DATE,ID,P_ID,B_ID) values (";
         var user = req.session.user;
-        s+=Number(req.body.rent);
-        s+=",'"+req.body.sdate+"'";
-        s+=",'"+req.body.edate+"'";
+        s+=Number(req.body.Rent);
+        s+=",'"+req.body.date+"'";
+        s+=",'"+req.body.END_DATE+"'";
         s+=","+user.ID;
         s+=","+Number(req.body.pid);
         s+=","+Number(req.body.buyer)+")";
@@ -260,7 +254,7 @@ router.post("/payment",function(req,res){
               throw err;
             });
           }
-          con.query("update property set Available=’No’ where P_ID="+Number(req.body.pid),(err, ab) => {
+          con.query("update property set Available='No' where P_ID="+Number(req.body.pid),(err, ab) => {
                if(err)
                { 
                  console.log(err);
@@ -299,14 +293,14 @@ router.post("/payment",function(req,res){
   else
   {
     console.log("sale");
-    con.query("select P_status from property where ID="+Number(req.body.pid),(err, agnt) => {
+    con.query("select Available from property where P_ID="+Number(req.body.pid),(err, agnt) => {
       console.log(agnt);
-      if(agnt[0].P_status==0){
+      if(agnt[0].Available=="No"){
         console.log(agnt);
         con.query("select B_ID,Firstname,Lastname from buyer",(err, agnt) => {
           var user = req.session.user;
- 
-          con.query("select P_ID,Sale_or_Rent from property where Available=’Yes’ and ID="+user.ID,(err, agnt1) => {
+
+          con.query("select P_ID,Sale_or_Rent from property where Available='Yes' and ID="+user.ID,(err, agnt1) => {
             res.render("payment.ejs",{user : user, error : "Property already transacted ! Not available",Data : agnt,Data1 : agnt1});
           });
         });
@@ -315,14 +309,14 @@ router.post("/payment",function(req,res){
       {
         con.beginTransaction(function(err) {
         var s = "insert into sale_details(Sell_price,S_date,ID,P_ID,B_ID) values (";
-        s+=Number(req.body.sprice);
-        s+=",'"+req.body.sdate+"'";
+        s+=Number(req.body.Sell_price);
+        s+=",'"+req.body.date+"'";
         var user = req.session.user;
         s+=","+user.ID;
         s+=","+Number(req.body.pid);
         s+=","+Number(req.body.buyer)+")";
         console.log(s);
- 
+
         con.query(s,(err, a) => {
           if(err){
             console.log(err);
@@ -331,7 +325,7 @@ router.post("/payment",function(req,res){
               throw err;
             });
           }
-          con.query("update property set Available=’No’ where P_ID="+Number(req.body.pid),(err, ab) => {
+          con.query("update property set Available='No' where P_ID="+Number(req.body.pid),(err, ab) => {
                if(err)
                { 
                  console.log(err);
@@ -347,8 +341,10 @@ router.post("/payment",function(req,res){
                 }
                 console.log('Transaction Complete.');
                 con.query("select B_ID,Firstname,Lastname from buyer",(err, agnt) => {
+                  
                   var user = req.session.user;
-                  con.query("select P_ID,Sale_or_Rent from property where Available=’Yes’ and  ID="+user.ID,(err, agnt1) => {
+                  con.query("select P_ID,Sale_or_Rent from property where Available='Yes' and  ID="+user.ID,(err, agnt1) => {
+                    console.log(agnt1);
                     res.render("payment.ejs",{user : user, error : "Transaction complete !",Data : agnt,Data1 : agnt1});
                   });
                 });
@@ -362,9 +358,10 @@ router.post("/payment",function(req,res){
   });
   }
   
- 
- 
+
+
 });
+
  
 router.post("/updateAgentCredentials",function(req,res){
   var user =  req.session.user;
