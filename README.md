@@ -1,6 +1,6 @@
 # To run the web application:
 
-* Click [here](https://real-estate-office-project.herokuapp.com/)
+<!-- * Click [here](https://real-estate-office-project.herokuapp.com/) -->
 * Select AGENT or OFFICE button to go to their respective login pages.
 * For <ins>AGENT</ins> : username -> "breana" , password -> "0000"
 * For <ins>OFFICE</ins> : username -> "aditi" , password -> "mypassword@123"
